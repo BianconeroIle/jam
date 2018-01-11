@@ -1,5 +1,7 @@
 package com.example.ilijaangeleski.jam_justaddmusic.presenter;
 
+import android.text.TextUtils;
+
 import com.example.ilijaangeleski.jam_justaddmusic.callback.RepositoriesCallback;
 import com.example.ilijaangeleski.jam_justaddmusic.manager.MainManager;
 import com.example.ilijaangeleski.jam_justaddmusic.model.GitRepo;
@@ -18,6 +20,8 @@ public class MainPresenter {
     private MainManager mainManager;
     private WeakReference<MainView> mainViewWeakReference;
     private List<GitRepo> repositories = new ArrayList<>();
+    private int page = 1;
+    private String query;
 
     public MainPresenter(MainManager mainManager, WeakReference<MainView> view) {
         this.mainManager = mainManager;
@@ -25,7 +29,11 @@ public class MainPresenter {
     }
 
     public void fetchRepositories(String query) {
-        mainManager.fetchRepositories(query, new RepositoriesCallback() {
+        if (!TextUtils.isEmpty(this.query) && !this.query.equals(query)) {
+            page = 1;
+        }
+        this.query = query;
+        mainManager.fetchRepositories(query, page, new RepositoriesCallback() {
             @Override
             public void onSuccess(GitRepositories response) {
                 MainView view = mainViewWeakReference.get();
@@ -36,7 +44,8 @@ public class MainPresenter {
                         repositories.clear();
                         repositories.addAll(response.getResults());
                         view.updateView();
-                    }else {
+                        page++;
+                    } else {
                         repositories.clear();
                         view.updateView();
                     }

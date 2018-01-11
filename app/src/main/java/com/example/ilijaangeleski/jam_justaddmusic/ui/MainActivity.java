@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.ilijaangeleski.jam_justaddmusic.MyApp;
 import com.example.ilijaangeleski.jam_justaddmusic.R;
+import com.example.ilijaangeleski.jam_justaddmusic.adapter.EndlessRecyclerViewScrollListener;
 import com.example.ilijaangeleski.jam_justaddmusic.adapter.RepositoriesRecyclerViewAdapter;
 import com.example.ilijaangeleski.jam_justaddmusic.di.components.DaggerMainActivityComponent;
 import com.example.ilijaangeleski.jam_justaddmusic.di.modules.MainActivityModule;
@@ -64,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                presenter.fetchRepositories(searchRepo.getText().toString());
+            }
+        });
     }
 
     private void initListeners() {

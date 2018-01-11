@@ -14,5 +14,5 @@ public interface NetworkApi {
     String BASE_URL = "https://api.github.com/";
 
     @GET("search/repositories")
-    Call<GitRepositories> fetchRepositories(@Query("q") String query);
+    Call<GitRepositories> fetchRepositories(@Query("q") String query,@Query("page") int page);
 }
