@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.searchRepo)
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         createDependencies();
         initView();
         initListeners();
+        presenter.fetchRepositories(searchRepo.getText().toString());
     }
 
     private void createDependencies() {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         recyclerView.setAdapter(adapter);
     }
 
-    private void initListeners(){
+    private void initListeners() {
         searchRepo.addTextChangedListener(new TextWatcher() {
             CountDownTimer timer = null;
 
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
                     public void onFinish() {
                         presenter.fetchRepositories(searchRepo.getText().toString());
-
                     }
                 }.start();
             }
