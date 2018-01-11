@@ -19,7 +19,7 @@ public class MainManager {
         this.networkApi = networkApi;
     }
 
-    public void fetchRepositories(String query,final RepositoriesCallback callback){
+    public void fetchRepositories(String query, final RepositoriesCallback callback) {
         networkApi.fetchRepositories(query).enqueue(new Callback<GitRepositories>() {
             @Override
             public void onResponse(Call<GitRepositories> call, Response<GitRepositories> response) {

@@ -47,6 +47,12 @@ public class RepositoriesRecyclerViewAdapter extends RecyclerView.Adapter<Reposi
         Picasso.with(holder.avatar.getContext()).load(current.getOwner().getAvatarUrl())
                 .transform(new CircleTransform()).placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round)
                 .into(holder.avatar);
+
+        if(current.isHasWiki()){
+            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.colorGray));
+        }else{
+            holder.itemView.setBackgroundColor(holder.itemView.getContext().getResources().getColor(android.R.color.transparent));
+        }
     }
 
     @Override

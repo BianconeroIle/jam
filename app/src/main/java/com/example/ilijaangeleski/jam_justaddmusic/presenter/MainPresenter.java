@@ -24,21 +24,30 @@ public class MainPresenter {
         this.mainViewWeakReference = view;
     }
 
-    public void fetchRepositories() {
-        mainManager.fetchRepositories("tetris", new RepositoriesCallback() {
+    public void fetchRepositories(String query) {
+        mainManager.fetchRepositories(query, new RepositoriesCallback() {
             @Override
             public void onSuccess(GitRepositories response) {
                 MainView view = mainViewWeakReference.get();
-                if(view != null){
-                    repositories.addAll(response.getResults());
-                    view.updateView();
+                if (view != null) {
+                    if (response != null
+                            && response.getResults() != null
+                            && !response.getResults().isEmpty()) {
+                        repositories.clear();
+                        repositories.addAll(response.getResults());
+                        view.updateView();
+                    }else {
+                        repositories.clear();
+                        view.updateView();
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 MainView view = mainViewWeakReference.get();
-                if(view != null) {
+                if (view != null) {
                     view.showErrorGettingRepositories();
                 }
             }

@@ -1,9 +1,12 @@
 package com.example.ilijaangeleski.jam_justaddmusic.ui;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         ButterKnife.bind(this);
         createDependencies();
         initView();
-        presenter.fetchRepositories();
+        initListeners();
     }
 
     private void createDependencies() {
@@ -60,6 +63,37 @@ public class MainActivity extends AppCompatActivity implements MainView{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void initListeners(){
+        searchRepo.addTextChangedListener(new TextWatcher() {
+            CountDownTimer timer = null;
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+                timer = new CountDownTimer(500, 250) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        presenter.fetchRepositories(searchRepo.getText().toString());
+
+                    }
+                }.start();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
