@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by Ilija Angeleski on 1/10/2018.
+ * Created by Ilija Angeleski on 1/11/2018.
  */
 @Module
 public class MainActivityModule {

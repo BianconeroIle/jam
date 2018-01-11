@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Ilija Angeleski on 12/6/2017.
- */
 
 public class GitRepositories implements Serializable {
     @SerializedName("total_count")

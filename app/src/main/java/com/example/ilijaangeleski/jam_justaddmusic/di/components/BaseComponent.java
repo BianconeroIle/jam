@@ -10,7 +10,7 @@ import com.example.ilijaangeleski.jam_justaddmusic.di.modules.NetworkModule;
 import dagger.Component;
 
 /**
- * Created by Ilija Angeleski on 1/10/2018.
+ * Created by Ilija Angeleski on 1/11/2018.
  */
 @Component(modules = {AppModule.class,NetworkModule.class})
 public interface BaseComponent {
