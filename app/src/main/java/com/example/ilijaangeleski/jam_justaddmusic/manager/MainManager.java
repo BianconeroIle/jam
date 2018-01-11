@@ -19,8 +19,8 @@ public class MainManager {
         this.networkApi = networkApi;
     }
 
-    public void fetchRepositories(String query, int page, final RepositoriesCallback callback) {
-        networkApi.fetchRepositories(query, page).enqueue(new Callback<GitRepositories>() {
+    public void fetchRepositories(String query,int page, final RepositoriesCallback callback) {
+        networkApi.fetchRepositories(query,page).enqueue(new Callback<GitRepositories>() {
             @Override
             public void onResponse(Call<GitRepositories> call, Response<GitRepositories> response) {
                 callback.onSuccess(response.body());

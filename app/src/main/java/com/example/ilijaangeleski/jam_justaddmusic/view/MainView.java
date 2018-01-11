@@ -8,4 +8,6 @@ public interface MainView {
     void updateView();
 
     void showErrorGettingRepositories();
+
+    void resetScrollListener();
 }

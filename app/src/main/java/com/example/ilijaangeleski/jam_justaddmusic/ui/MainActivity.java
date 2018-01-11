@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     MainPresenter presenter;
 
     private RepositoriesRecyclerViewAdapter adapter;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +66,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 presenter.fetchRepositories(searchRepo.getText().toString());
             }
-        });
+        };
+        recyclerView.addOnScrollListener(scrollListener);
+    }
+
+    @Override
+    public void resetScrollListener() {
+        adapter.notifyDataSetChanged();
+        scrollListener.resetState();
     }
 
     private void initListeners() {

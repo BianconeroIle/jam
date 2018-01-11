@@ -31,6 +31,11 @@ public class MainPresenter {
     public void fetchRepositories(String query) {
         if (!TextUtils.isEmpty(this.query) && !this.query.equals(query)) {
             page = 1;
+            repositories.clear();
+            MainView view = mainViewWeakReference.get();
+            if (view != null) {
+                view.resetScrollListener();
+            }
         }
         this.query = query;
         mainManager.fetchRepositories(query, page, new RepositoriesCallback() {
@@ -38,18 +43,14 @@ public class MainPresenter {
             public void onSuccess(GitRepositories response) {
                 MainView view = mainViewWeakReference.get();
                 if (view != null) {
-                    if (response != null
-                            && response.getResults() != null
-                            && !response.getResults().isEmpty()) {
-                        repositories.clear();
+                    if (response != null &&
+                            response.getResults() != null &&
+                            !response.getResults().isEmpty()
+                    ) {
                         repositories.addAll(response.getResults());
                         view.updateView();
                         page++;
-                    } else {
-                        repositories.clear();
-                        view.updateView();
                     }
-
                 }
             }
 
