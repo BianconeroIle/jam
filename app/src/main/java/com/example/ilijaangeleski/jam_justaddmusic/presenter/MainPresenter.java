@@ -19,9 +19,9 @@ public class MainPresenter {
     private WeakReference<MainView> mainViewWeakReference;
     private List<GitRepo> repositories = new ArrayList<>();
 
-    public MainPresenter(MainManager mainManager, MainView view) {
+    public MainPresenter(MainManager mainManager, WeakReference<MainView> view) {
         this.mainManager = mainManager;
-        this.mainViewWeakReference = new WeakReference<>(view);
+        this.mainViewWeakReference = view;
     }
 
     public void fetchRepositories() {

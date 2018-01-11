@@ -1,4 +1,4 @@
-package com.example.ilijaangeleski.jam_justaddmusic.di;
+package com.example.ilijaangeleski.jam_justaddmusic.di.modules;
 
 import android.content.Context;
 

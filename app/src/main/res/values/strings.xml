@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">jam-justaddmusic</string>
     <string name="searchRepo">Search repositories..</string>
+    <string name="error_getting_repositories">Error getting repositories</string>
 </resources>

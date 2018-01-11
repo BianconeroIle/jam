@@ -43,7 +43,7 @@ public class RepositoriesRecyclerViewAdapter extends RecyclerView.Adapter<Reposi
         final GitRepo current = repos.get(position);
         holder.repositoryName.setText(current.getName());
         holder.loginName.setText(current.getOwner().getLogin());
-        holder.sizeOfRepositories.setText(current.getSize());
+        holder.sizeOfRepositories.setText(current.getSize()+"");
         Picasso.with(holder.avatar.getContext()).load(current.getOwner().getAvatarUrl())
                 .transform(new CircleTransform()).placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round)
                 .into(holder.avatar);
