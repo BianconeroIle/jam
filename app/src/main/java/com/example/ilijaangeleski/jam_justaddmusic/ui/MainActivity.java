@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.example.ilijaangeleski.jam_justaddmusic.R;
 import com.example.ilijaangeleski.jam_justaddmusic.adapter.RepositoriesRecyclerViewAdapter;
+import com.example.ilijaangeleski.jam_justaddmusic.presenter.MainPresenter;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.searchRepo)
     EditText searchRepo;
 
+    MainPresenter presenter;
+
     private RepositoriesRecyclerViewAdapter adapter;
 
     @Override
@@ -27,11 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        presenter.fetchRepositories();
     }
 
     private void initView(){
         adapter = new RepositoriesRecyclerViewAdapter(
-                null,
+                presenter.getRepositories(),
                 R.layout.item_repository
         );
         recyclerView.setAdapter(adapter);
